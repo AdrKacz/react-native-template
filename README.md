@@ -64,7 +64,7 @@ json_key_file("./fastline/pc-api-***.json") # Path to the json secret file - Fol
 package_name("com.adrkacz.reactnativetemplate.app") # e.g. com.krausefx.app
 ```
 
-## [Add screenshots automation](https://docs.fastlane.tools/getting-started/android/screenshots/)
+## [Add screenshots automation](https://docs.fastlane.tools/getting-started/android/screenshots/) *(not needed for Beta)*
 
 ```
 sudo gem install screengrab
@@ -77,8 +77,32 @@ dependencies {
     ...
     androidTestImplementation 'tools.fastlane:screengrab:x.x.x'
 }
-
 ```
+
+- Update `android/app/src/debug/AndroidManifest.xml`
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <!-- ... -->
+
+    <!-- Allows unlocking your device and activating its screen so UI tests can succeed -->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+    <!-- Allows for storing and retrieving screenshots -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!-- Allows changing locales -->
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+
+    <!-- ... -->
+</manifest>
+```
+
+> I did not went further for now, screenshots are not necessary for beta deployment.
 
 ## Setup Supply
 
@@ -169,7 +193,15 @@ android {
 - Click on **Save changes**
 - Click on **Copy link**, and share it
 
-### Upload to production
+### Lauch Supply
+
+```
+fastlane supply init
+```
+
+> Supply won't find files relative to `production`, this is normal, you didn't upload a production build.
+
+### Upload to production *(not needed)*
 
 - Open Google Play Console
 - Go to **Production**
@@ -179,8 +211,7 @@ android {
 - Click on **Review release**
 - Correct errors
 
-```
-fastlane supply init
-```
+
+
 
 

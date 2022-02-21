@@ -224,7 +224,7 @@ dependencies {
         implementation jscFlavor
     }
 
-    androidTestImplementation 'tools.fastlane:screengrab:x.x.x'
+    // androidTestImplementation 'tools.fastlane:screengrab:x.x.x'
 }
 
 // Run this once to be able to run the application with BUCK
